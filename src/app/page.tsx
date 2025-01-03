@@ -30,7 +30,7 @@ const HomePage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.5 }}
                 >
-                    I’m Mihiresh Joshi, crafting impactful solutions in AI, Full-Stack Development, and cutting-edge technologies.
+                    I’m Mihiresh Joshi, crafting impactful solutions in AI/ML, Full-Stack Development, and cutting-edge technologies.
                 </motion.p>
                 <motion.a
                     href="#about"
