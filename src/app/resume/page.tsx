@@ -5,7 +5,7 @@ import React from "react";
 const ResumePage = () => {
     const downloadResume = () => {
         const link = document.createElement("a");
-        link.href = "/path-to-your-resume/mainresume.pdf"; // Replace with the actual path to your PDF
+        link.href = "/docs/mainresume_brown.pdf"; // Replace with the actual path to your PDF
         link.download = "Mihiresh_Joshi_Resume.pdf";
         link.click();
     };
