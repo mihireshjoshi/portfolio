@@ -429,8 +429,8 @@ const ProjectsPage = () => {
                             </div>
 
                             {/* Video and Tabs */}
-                            <div className="flex flex-col md:flex-row gap-10">
-                                <div className="md:w-1/2">
+                            <div className="flex flex-col lg:flex-row gap-10">
+                                <div className="lg:w-1/2">
                                     <iframe
                                         src={project.video}
                                         className="w-full h-64 md:h-80 rounded-lg shadow-lg"
@@ -449,8 +449,8 @@ const ProjectsPage = () => {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="md:w-1/2">
-                                    <div className="flex space-x-4 border-b border-gray-700 pb-2 mb-4">
+                                <div className="lg:w-1/2">
+                                    <div className="flex overflow-x-scroll space-x-4 border-b border-gray-700 pb-2 mb-4">
                                         {["description", "features", "technologies", "team", "feedback"].map((tab) => (
                                             <button
                                                 key={tab}
