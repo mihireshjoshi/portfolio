@@ -1,118 +1,317 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
+import { useState } from 'react'
 
-const ContactPage = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: "",
-    });
+export default function ContactPage() {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [sent, setSent] = useState(false)
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Form Submitted:", formData);
-        // Add backend or email service integration here
-        setFormData({ name: "", email: "", message: "" });
-        alert("Message Sent Successfully!");
-    };
+  const handleSubmit = () => {
+    console.log('Form submission:', form)
+    setSent(true)
+    setForm({ name: '', email: '', subject: '', message: '' })
+    setTimeout(() => setSent(false), 5000)
+  }
 
-    return (
-        <div className="bg-gray-100 min-h-screen py-10">
-            <div className="container mx-auto px-4">
-                <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">Contact Me</h1>
-                <div className="bg-white shadow-lg rounded-lg p-6 max-w-2xl mx-auto">
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-4">
-                            <label htmlFor="name" className="block text-gray-700 font-medium">
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="w-full mt-2 p-2 border rounded"
-                                placeholder="Enter your name"
-                                required
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="email" className="block text-gray-700 font-medium">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="w-full mt-2 p-2 border rounded"
-                                placeholder="Enter your email"
-                                required
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="message" className="block text-gray-700 font-medium">
-                                Message
-                            </label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                className="w-full mt-2 p-2 border rounded"
-                                placeholder="Enter your message"
-                                rows={5}
-                                required
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-                        >
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-                <div className="mt-10 text-center">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Connect with Me</h2>
-                    <div className="flex justify-center space-x-6">
-                        <a
-                            href="https://linkedin.com/in/yourprofile"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                        >
-                            LinkedIn
-                        </a>
-                        <a
-                            href="https://github.com/yourgithub"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                        >
-                            GitHub
-                        </a>
-                        <a
-                            href="mailto:youremail@example.com"
-                            className="text-blue-500 hover:underline"
-                        >
-                            Email
-                        </a>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div style={{ background: 'var(--paper)' }}>
+      {/* ── HEADER ── */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 2rem 0' }}>
+        <div style={{ borderTop: '3px solid var(--ink)', paddingTop: '1.5rem' }}>
+          <p className="section-tag" style={{ marginBottom: '0.5rem' }}>
+            Editorial Desk — Contact
+          </p>
+          <h1 className="headline-xl" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', marginBottom: '0.5rem' }}>
+            Send a
+            <br />
+            <span style={{ color: 'var(--accent)' }}>Dispatch</span>
+          </h1>
+          <p className="standfirst">
+            Collaborate, hire, or just say hello — the editorial desk is always open.
+          </p>
         </div>
-    );
-};
+      </div>
 
-export default ContactPage;
+      {/* ── CONTENT ── */}
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem 3rem' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '3fr 2fr',
+            gap: 0,
+            borderTop: '3px double var(--ink)',
+            marginTop: '1.5rem',
+          }}
+        >
+          {/* ── FORM ── */}
+          <div style={{ paddingRight: '2rem', borderRight: '1px solid var(--ink)', paddingTop: '1.5rem' }}>
+            <p className="byline" style={{ marginBottom: '1.5rem' }}>
+              All dispatches reviewed within 24 hours · Mumbai Standard Time
+            </p>
+
+            {sent && (
+              <div
+                style={{
+                  background: 'var(--ink)',
+                  color: 'var(--paper)',
+                  padding: '1rem 1.5rem',
+                  marginBottom: '1.5rem',
+                  borderLeft: '4px solid var(--accent)',
+                }}
+              >
+                <p className="font-mono" style={{ fontSize: '12px', fontWeight: 700 }}>
+                  ✓ Dispatch Received — Thank you for reaching out.
+                </p>
+              </div>
+            )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {/* Name + Email row */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div>
+                  <label
+                    className="section-tag"
+                    style={{ display: 'block', marginBottom: '0.4rem' }}
+                  >
+                    Full Name *
+                  </label>
+                  <input
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    style={{
+                      width: '100%',
+                      padding: '0.65rem 0.75rem',
+                      border: '1px solid var(--ink)',
+                      background: 'transparent',
+                      fontFamily: 'Space Mono, monospace',
+                      fontSize: '12px',
+                      color: 'var(--ink)',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+                <div>
+                  <label className="section-tag" style={{ display: 'block', marginBottom: '0.4rem' }}>
+                    Email Address *
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    style={{
+                      width: '100%',
+                      padding: '0.65rem 0.75rem',
+                      border: '1px solid var(--ink)',
+                      background: 'transparent',
+                      fontFamily: 'Space Mono, monospace',
+                      fontSize: '12px',
+                      color: 'var(--ink)',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Subject */}
+              <div>
+                <label className="section-tag" style={{ display: 'block', marginBottom: '0.4rem' }}>
+                  Subject
+                </label>
+                <select
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.65rem 0.75rem',
+                    border: '1px solid var(--ink)',
+                    background: 'var(--paper)',
+                    fontFamily: 'Space Mono, monospace',
+                    fontSize: '12px',
+                    color: 'var(--ink)',
+                    outline: 'none',
+                    appearance: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <option value="">Select a subject...</option>
+                  <option value="hiring">Hiring / Job Opportunity</option>
+                  <option value="freelance">Freelance Project</option>
+                  <option value="collaboration">Collaboration</option>
+                  <option value="general">General Enquiry</option>
+                </select>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="section-tag" style={{ display: 'block', marginBottom: '0.4rem' }}>
+                  Message *
+                </label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="What would you like to discuss?"
+                  rows={7}
+                  style={{
+                    width: '100%',
+                    padding: '0.65rem 0.75rem',
+                    border: '1px solid var(--ink)',
+                    background: 'transparent',
+                    fontFamily: 'Space Mono, monospace',
+                    fontSize: '12px',
+                    color: 'var(--ink)',
+                    outline: 'none',
+                    resize: 'vertical',
+                    lineHeight: 1.6,
+                  }}
+                />
+              </div>
+
+              <div>
+                <button
+                  onClick={handleSubmit}
+                  disabled={!form.name || !form.email || !form.message}
+                  className="btn-ink"
+                  style={{
+                    cursor: form.name && form.email && form.message ? 'pointer' : 'not-allowed',
+                    opacity: form.name && form.email && form.message ? 1 : 0.5,
+                    border: 'none',
+                    fontSize: '12px',
+                  }}
+                >
+                  Send Dispatch →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* ── SIDEBAR ── */}
+          <div style={{ paddingLeft: '2rem', paddingTop: '1.5rem' }}>
+            {/* Direct contact */}
+            <div style={{ marginBottom: '2rem' }}>
+              <p className="section-tag" style={{ marginBottom: '1rem' }}>
+                Direct Lines
+              </p>
+              {[
+                {
+                  label: 'Email',
+                  value: 'mihiresh.joshi@example.com',
+                  href: 'mailto:mihiresh.joshi@example.com',
+                },
+                {
+                  label: 'GitHub',
+                  value: 'github.com/mihireshjoshi',
+                  href: 'https://github.com/mihireshjoshi',
+                },
+                {
+                  label: 'LinkedIn',
+                  value: 'linkedin.com/in/mihiresh-joshi',
+                  href: 'https://www.linkedin.com/in/mihiresh-joshi-651423207/',
+                },
+              ].map((contact) => (
+                <a
+                  key={contact.label}
+                  href={contact.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    padding: '0.85rem 0',
+                    borderBottom: '1px solid var(--ink)',
+                    textDecoration: 'none',
+                    color: 'var(--ink)',
+                  }}
+                >
+                  <span className="section-tag" style={{ display: 'block', marginBottom: '0.2rem' }}>
+                    {contact.label}
+                  </span>
+                  <span
+                    className="font-mono"
+                    style={{ fontSize: '11px', color: 'var(--muted)' }}
+                  >
+                    {contact.value} →
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* Availability banner */}
+            <div
+              style={{
+                background: 'var(--ink)',
+                color: 'var(--paper)',
+                padding: '1.5rem',
+                marginBottom: '1.5rem',
+              }}
+            >
+              <p className="section-tag" style={{ color: 'var(--accent)', marginBottom: '0.75rem' }}>
+                Availability
+              </p>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginBottom: '0.75rem',
+                }}
+              >
+                <div
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#22c55e',
+                    animation: 'pulse 2s infinite',
+                  }}
+                />
+                <span className="font-mono" style={{ fontSize: '11px', color: '#22c55e', fontWeight: 700 }}>
+                  Open to Opportunities
+                </span>
+              </div>
+              <p className="body-copy" style={{ fontSize: '11px', color: '#aaa', lineHeight: 1.6 }}>
+                Currently SDE-1 at JPMorgan Chase. Open to full-time roles,
+                freelance projects, and meaningful collaborations post-graduation (2025).
+              </p>
+            </div>
+
+            {/* Location */}
+            <div style={{ borderTop: '3px solid var(--ink)', paddingTop: '1rem' }}>
+              <p className="section-tag" style={{ marginBottom: '0.75rem' }}>Bureau Location</p>
+              <p className="font-mono" style={{ fontSize: '12px', lineHeight: 1.8 }}>
+                Mumbai, Maharashtra
+                <br />
+                India — IST (UTC+5:30)
+                <br />
+                <span style={{ color: 'var(--muted)', fontSize: '11px' }}>
+                  Response time: &lt; 24 hours
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+        input::placeholder, textarea::placeholder {
+          color: var(--muted);
+        }
+        input:focus, textarea:focus, select:focus {
+          border-color: var(--accent) !important;
+        }
+      `}</style>
+    </div>
+  )
+}

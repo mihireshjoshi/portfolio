@@ -1,5 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ink: #0a0a0a;
+  --paper: #f5f0e8;
+  --paper-dark: #ede8dc;
+  --accent: #c8102e;
+  --accent-gold: #b8860b;
+  --rule: #0a0a0a;
+  --muted: #6b6560;
+  --column-gap: 2rem;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TYPOGRAPHY ── */
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.font-serif {
+  font-family: 'IM Fell English', Georgia, serif;
+}
+.font-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+/* ── NEWSPAPER RULES ── */
+.rule-top {
+  border-top: 3px solid var(--ink);
+}
+.rule-top-thick {
+  border-top: 6px solid var(--ink);
+}
+.rule-top-double {
+  border-top: 3px double var(--ink);
+}
+.rule-bottom {
+  border-bottom: 1px solid var(--ink);
+}
+.rule-bottom-thick {
+  border-bottom: 3px solid var(--ink);
+}
+.rule-left {
+  border-left: 1px solid var(--ink);
+}
+
+/* ── MASTHEAD ── */
+.masthead-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── HEADLINE STYLES ── */
+.headline-xl {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+.headline-lg {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.05;
+}
+.headline-md {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  line-height: 1.15;
+}
+.headline-sm {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+/* ── DECK / STANDFIRST ── */
+.standfirst {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* ── BODY COPY ── */
+.body-copy {
+  font-family: 'Space Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #1a1a1a;
+}
+
+/* ── LABEL / SECTION TAG ── */
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── BYLINE ── */
+.byline {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  line-height: 1.3;
+  border-left: 4px solid var(--accent);
+  padding-left: 1.5rem;
+}
+
+/* ── COLUMN GRID ── */
+.col-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.col-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+.col-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+/* ── CARD ── */
+.news-card {
+  transition: all 0.2s ease;
+}
+.news-card:hover {
+  background: var(--paper-dark);
+}
+
+/* ── NAV LINK ── */
+.nav-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+.nav-link:hover,
+.nav-link.active {
+  border-bottom-color: var(--accent);
+}
+
+/* ── BUTTON ── */
+.btn-ink {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.65rem 1.5rem;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-ink:hover {
+  background: var(--accent);
+}
+.btn-outline {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 0.65rem 1.5rem;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ── TICKER ── */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 30s linear infinite;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── DROPCAP ── */
+.dropcap::first-letter {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  float: left;
+  margin-right: 0.1em;
+  margin-top: 0.05em;
+}
+
+/* ── TAG PILL ── */
+.tech-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  padding: 2px 8px;
+  background: transparent;
+  color: var(--ink);
+}
+
+/* ── PHOTO CAPTION ── */
+.caption {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  border-top: 1px solid var(--muted);
+  padding-top: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+}
+
+/* ── DIVIDER ORNAMENT ── */
+.ornament {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--muted);
+  letter-spacing: 0.5rem;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeInUp 0.5s ease forwards;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+/* ── COLUMN DIVIDERS ── */
+.divide-cols > * + * {
+  border-left: 1px solid var(--ink);
+}
+
+/* ── SELECTION ── */
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .col-grid-2,
+  .col-grid-3,
+  .col-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .divide-cols > * + * {
+    border-left: none;
+    border-top: 1px solid var(--ink);
+  }
+}
