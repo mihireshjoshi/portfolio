@@ -15,7 +15,7 @@ export default function ResumePage() {
               </p>
             </div>
             <a
-              href="/docs/mainresume_brown.pdf"
+              href="/resume.pdf"
               download="Mihiresh_Joshi_Resume.pdf"
               className="btn-ink"
               style={{ alignSelf: 'flex-end' }}

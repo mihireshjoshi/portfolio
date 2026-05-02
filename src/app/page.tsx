@@ -87,7 +87,7 @@ export default function HomePage() {
             }}
           >
             <p className="byline" style={{ marginBottom: '0.75rem' }}>
-              By The Editorial Staff · Mumbai Bureau
+              By The Editorial Staff · Mumbai
             </p>
             <h1
               className="headline-xl"
@@ -129,7 +129,7 @@ export default function HomePage() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <a href="/docs/mainresume_brown.pdf" className="btn-ink" download>
+              <a href="/resume.pdf" className="btn-ink" download>
                 Download Résumé
               </a>
               <Link href="/projects" className="btn-outline">
@@ -163,7 +163,7 @@ export default function HomePage() {
               </h2>
               <dl style={{ fontSize: '11px', fontFamily: 'Space Mono, monospace', lineHeight: 2 }}>
                 {[
-                  ['Role', 'SDE Intern, JPMorgan Chase'],
+                  ['Role', 'SDE-1, JPMorgan Chase'],
                   ['Education', 'B.Tech CE(DS), RAIT Mumbai'],
                   ['CGPA', '9.46 / 10'],
                   ['Location', 'Mumbai, India'],
@@ -186,7 +186,7 @@ export default function HomePage() {
                 {[
                   { label: 'GitHub', href: 'https://github.com/mihireshjoshi' },
                   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mihiresh-joshi-651423207/' },
-                  { label: 'Email', href: 'mailto:mihiresh.joshi@example.com' },
+                  { label: 'Email', href: 'mailto:mihireshsjoshi@gmail.com' },
                 ].map((l) => (
                   <a
                     key={l.label}

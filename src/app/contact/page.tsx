@@ -5,16 +5,39 @@ import { useState } from 'react'
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+    setError('')
   }
 
-  const handleSubmit = () => {
-    console.log('Form submission:', form)
-    setSent(true)
-    setForm({ name: '', email: '', subject: '', message: '' })
-    setTimeout(() => setSent(false), 5000)
+  const handleSubmit = async () => {
+    setLoading(true)
+    setError('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send message')
+      }
+
+      setSent(true)
+      setForm({ name: '', email: '', subject: '', message: '' })
+      setTimeout(() => setSent(false), 5000)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -65,6 +88,22 @@ export default function ContactPage() {
               >
                 <p className="font-mono" style={{ fontSize: '12px', fontWeight: 700 }}>
                   ✓ Dispatch Received — Thank you for reaching out.
+                </p>
+              </div>
+            )}
+
+            {error && (
+              <div
+                style={{
+                  background: '#fee2e2',
+                  color: '#991b1b',
+                  padding: '1rem 1.5rem',
+                  marginBottom: '1.5rem',
+                  borderLeft: '4px solid #dc2626',
+                }}
+              >
+                <p className="font-mono" style={{ fontSize: '12px', fontWeight: 700 }}>
+                  ✗ Error — {error}
                 </p>
               </div>
             )}
@@ -179,16 +218,16 @@ export default function ContactPage() {
               <div>
                 <button
                   onClick={handleSubmit}
-                  disabled={!form.name || !form.email || !form.message}
+                  disabled={!form.name || !form.email || !form.message || loading}
                   className="btn-ink"
                   style={{
-                    cursor: form.name && form.email && form.message ? 'pointer' : 'not-allowed',
-                    opacity: form.name && form.email && form.message ? 1 : 0.5,
+                    cursor: form.name && form.email && form.message && !loading ? 'pointer' : 'not-allowed',
+                    opacity: form.name && form.email && form.message && !loading ? 1 : 0.5,
                     border: 'none',
                     fontSize: '12px',
                   }}
                 >
-                  Send Dispatch →
+                  {loading ? 'Sending...' : 'Send Dispatch →'}
                 </button>
               </div>
             </div>
@@ -204,8 +243,8 @@ export default function ContactPage() {
               {[
                 {
                   label: 'Email',
-                  value: 'mihiresh.joshi@example.com',
-                  href: 'mailto:mihiresh.joshi@example.com',
+                  value: 'mihireshsjoshi@gmail.com',
+                  href: 'mailto:mihireshsjoshi@gmail.com',
                 },
                 {
                   label: 'GitHub',
@@ -285,7 +324,7 @@ export default function ContactPage() {
 
             {/* Location */}
             <div style={{ borderTop: '3px solid var(--ink)', paddingTop: '1rem' }}>
-              <p className="section-tag" style={{ marginBottom: '0.75rem' }}>Bureau Location</p>
+              <p className="section-tag" style={{ marginBottom: '0.75rem' }}>Location</p>
               <p className="font-mono" style={{ fontSize: '12px', lineHeight: 1.8 }}>
                 Mumbai, Maharashtra
                 <br />

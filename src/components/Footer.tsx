@@ -137,10 +137,10 @@ export default function Footer() {
             <p>RAIT, B.Tech CS (DS)</p>
             <p>CGPA: 9.46 / 10</p>
             <a
-              href="mailto:mihiresh.joshi@example.com"
+              href="mailto:mihireshsjoshi@gmail.com"
               style={{ color: 'var(--accent)', textDecoration: 'none' }}
             >
-              mihiresh.joshi@example.com
+              mihireshsjoshi@gmail.com
             </a>
           </div>
         </div>

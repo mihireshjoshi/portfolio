@@ -80,7 +80,7 @@ export default function AboutPage() {
           {/* ── LEFT: BIO COLUMNS ── */}
           <div style={{ paddingRight: '2rem', borderRight: '1px solid var(--ink)' }}>
             <p className="byline" style={{ padding: '1rem 0', borderBottom: '1px solid var(--ink)' }}>
-              Reporter: The Portfolio Chronicle · Mumbai Bureau
+              Reporter: The Portfolio Chronicle · Mumbai
             </p>
 
             <div
