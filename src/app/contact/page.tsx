@@ -244,8 +244,8 @@ export default function ContactPage() {
               {[
                 {
                   label: 'Email',
-                  value: 'mihireshsjoshi@gmail.com',
-                  href: 'mailto:mihireshsjoshi@gmail.com',
+                  value: 'mihiresh.noreply@gmail.com',
+                  href: 'mailto:mihiresh.noreply@gmail.com',
                 },
                 {
                   label: 'GitHub',

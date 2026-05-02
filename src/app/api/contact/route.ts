@@ -129,7 +129,7 @@ export async function POST(request: Request) {
           <div style="border-top: 1px solid #0a0a0a; padding-top: 1.5rem; margin-bottom: 2rem;">
             <p style="margin: 0 0 1rem 0; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6560;">Direct Lines</p>
             <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-              <a href="mailto:mihireshsjoshi@gmail.com" style="color: #c8102e; text-decoration: none; font-size: 12px;"><strong>→ Email</strong> mihireshsjoshi@gmail.com</a>
+              <a href="mailto:mihiresh.noreply@gmail.com" style="color: #c8102e; text-decoration: none; font-size: 12px;"><strong>→ Email</strong> mihiresh.noreply@gmail.com</a>
               <a href="https://github.com/mihireshjoshi" style="color: #c8102e; text-decoration: none; font-size: 12px;"><strong>→ GitHub</strong> github.com/mihireshjoshi</a>
               <a href="https://www.linkedin.com/in/mihiresh-joshi-651423207/" style="color: #c8102e; text-decoration: none; font-size: 12px;"><strong>→ LinkedIn</strong> /in/mihiresh-joshi</a>
             </div>

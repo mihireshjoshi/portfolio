@@ -189,7 +189,7 @@ export default function HomePage() {
                 {[
                   { label: 'GitHub', href: 'https://github.com/mihireshjoshi' },
                   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mihiresh-joshi-651423207/' },
-                  { label: 'Email', href: 'mailto:mihireshsjoshi@gmail.com' },
+                  { label: 'Email', href: 'mailto:mihiresh.noreply@gmail.com' },
                 ].map((l) => (
                   <a
                     key={l.label}
