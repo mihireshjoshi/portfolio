@@ -59,9 +59,10 @@ export default function HomePage() {
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 2rem',
+          padding: '0 1rem',
           paddingTop: '2.5rem',
         }}
+        className="responsive-padding"
       >
         {/* Section label */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -78,13 +79,15 @@ export default function HomePage() {
             gap: '0',
             borderTop: '3px solid var(--ink)',
           }}
+          className="responsive-grid-2"
         >
           {/* ── LEFT: HERO STORY ── */}
           <div
             style={{
-              padding: '2rem 2rem 2rem 0',
+              padding: '2rem 1rem 2rem 0',
               borderRight: '1px solid var(--ink)',
             }}
+            className="responsive-padding responsive-no-border-right"
           >
             <p className="byline" style={{ marginBottom: '0.75rem' }}>
               By The Editorial Staff · Mumbai
@@ -142,7 +145,7 @@ export default function HomePage() {
           </div>
 
           {/* ── RIGHT: SIDEBAR ── */}
-          <div style={{ padding: '2rem 0 2rem 2rem' }}>
+          <div style={{ padding: '2rem 0 2rem 1rem' }} className="responsive-padding">
             {/* Profile card */}
             <div
               style={{
@@ -225,13 +228,14 @@ export default function HomePage() {
           background: 'var(--paper-dark)',
           borderTop: '1px solid var(--ink)',
           borderBottom: '1px solid var(--ink)',
-          padding: '0.75rem 2rem',
+          padding: '0.75rem 1rem',
           margin: '2rem 0',
           display: 'flex',
           alignItems: 'center',
           gap: '1rem',
           flexWrap: 'wrap',
         }}
+        className="responsive-padding responsive-gap"
       >
         <span className="section-tag" style={{ whiteSpace: 'nowrap' }}>
           Tech Stack ·
@@ -246,7 +250,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           FEATURED STORIES — PROJECT GRID
       ════════════════════════════════════ */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem 3rem' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem 3rem' }} className="responsive-padding">
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
           <span className="section-tag">Portfolio Highlights</span>
           <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
@@ -275,13 +279,15 @@ export default function HomePage() {
             borderTop: '3px double var(--ink)',
             marginBottom: '0',
           }}
+          className="responsive-grid-2"
         >
           {/* Lead */}
           <div
             style={{
-              padding: '1.5rem 2rem 1.5rem 0',
+              padding: '1.5rem 1rem 1.5rem 0',
               borderRight: '1px solid var(--ink)',
             }}
+            className="responsive-padding responsive-no-border-right"
           >
             <span className="section-tag" style={{ display: 'block', marginBottom: '0.5rem' }}>
               {FEATURED_PROJECTS[0].tag}
@@ -306,9 +312,10 @@ export default function HomePage() {
               <div
                 key={proj.headline}
                 style={{
-                  padding: '1.5rem 0 1.5rem 1.5rem',
+                  padding: '1.5rem 0 1.5rem 1rem',
                   borderBottom: i === 0 ? '1px solid var(--ink)' : 'none',
                 }}
+                className="responsive-padding"
               >
                 <span className="section-tag" style={{ display: 'block', marginBottom: '0.4rem' }}>
                   {proj.tag}
@@ -333,6 +340,7 @@ export default function HomePage() {
             gap: '0',
             borderTop: '3px double var(--ink)',
           }}
+          className="responsive-grid-2"
         >
           {FEATURED_PROJECTS.slice(3).map((proj, i) => (
             <div
@@ -340,8 +348,8 @@ export default function HomePage() {
               style={{
                 padding: '1.25rem',
                 borderRight: i === 0 ? '1px solid var(--ink)' : 'none',
-                paddingLeft: i === 0 ? 0 : '1.25rem',
               }}
+              className="responsive-no-border-right"
             >
               <span className="section-tag" style={{ display: 'block', marginBottom: '0.4rem' }}>
                 {proj.tag}
@@ -364,9 +372,10 @@ export default function HomePage() {
         style={{
           background: 'var(--ink)',
           color: 'var(--paper)',
-          padding: '4rem 2rem',
+          padding: '3rem 1rem',
           textAlign: 'center',
         }}
+        className="responsive-padding"
       >
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <span className="section-tag" style={{ color: 'var(--accent)', display: 'block', marginBottom: '1.5rem' }}>
@@ -396,7 +405,7 @@ export default function HomePage() {
       {/* ════════════════════════════════════
           ACHIEVEMENTS BAND
       ════════════════════════════════════ */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 2rem' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem' }} className="responsive-padding">
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
           <span className="section-tag">Dispatch: Achievements</span>
           <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
@@ -408,6 +417,7 @@ export default function HomePage() {
             gap: '0',
             borderTop: '3px solid var(--ink)',
           }}
+          className="responsive-grid-3"
         >
           {[
             {
@@ -433,9 +443,9 @@ export default function HomePage() {
               key={a.sub}
               style={{
                 padding: '1.5rem',
-                paddingLeft: i === 0 ? 0 : '1.5rem',
                 borderRight: i < 2 ? '1px solid var(--ink)' : 'none',
               }}
+              className="responsive-no-border-right"
             >
               <span className="byline" style={{ display: 'block', marginBottom: '0.25rem' }}>
                 {a.tag}

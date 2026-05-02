@@ -2,12 +2,21 @@ export default function ResumePage() {
   return (
     <div style={{ background: 'var(--paper)' }}>
       {/* ── HEADER ── */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 2rem 0' }}>
-        <div style={{ borderTop: '3px solid var(--ink)', paddingTop: '1.5rem', marginBottom: '0' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-            <div>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem 0' }} className="responsive-padding">
+        <div style={{ paddingTop: '1.5rem', marginBottom: '0' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              flexWrap: 'wrap',
+              gap: '1rem',
+            }}
+            className="resume-header-row"
+          >
+            <div style={{ flex: '1 1 320px' }}>
               <p className="section-tag" style={{ marginBottom: '0.5rem' }}>Résumé — Curriculum Vitae</p>
-              <h1 className="headline-xl" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
+              <h1 className="headline-xl">
                 Mihiresh Joshi
               </h1>
               <p className="standfirst">
@@ -17,8 +26,8 @@ export default function ResumePage() {
             <a
               href="/resume.pdf"
               download="Mihiresh_Joshi_Resume.pdf"
-              className="btn-ink"
-              style={{ alignSelf: 'flex-end' }}
+              className="btn-ink resume-download-btn"
+              style={{ alignSelf: 'flex-start' }}
             >
               Download PDF ↓
             </a>
@@ -27,7 +36,7 @@ export default function ResumePage() {
       </div>
 
       {/* ── MAIN TWO-COLUMN LAYOUT ── */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem 3rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem 3rem' }} className="responsive-padding">
         <div
           style={{
             display: 'grid',
@@ -36,9 +45,10 @@ export default function ResumePage() {
             borderTop: '3px double var(--ink)',
             marginTop: '1.5rem',
           }}
+          className="responsive-grid-2"
         >
           {/* ── LEFT COLUMN ── */}
-          <div style={{ paddingRight: '2rem', borderRight: '1px solid var(--ink)' }}>
+          <div style={{ paddingRight: '1rem', borderRight: '1px solid var(--ink)' }} className="responsive-padding responsive-no-border-right">
 
             {/* EXPERIENCE */}
             <div style={{ paddingTop: '1.5rem' }}>
@@ -49,34 +59,40 @@ export default function ResumePage() {
 
               {[
                 {
+                  role: 'Software Development Engineer 1',
+                  org: 'JPMorgan Chase & Co.',
+                  period: 'July 2025 – Present',
+                  type: 'Full-Time',
+                  bullets: [
+                    'Engineered and owned backend micro-services for large-scale cloud data migration using Java and SpringBoot.',
+                    'Maintained and extended CI/CD pipelines via Jenkins and Spinnaker across multiple deployment environments.',
+                    'Managed cloud infrastructure through IaaC, ensuring reproducible and auditable environment provisioning on AWS.',
+                    'Optimised data movement workflows, reducing pipeline runtimes from days to hours through targeted automation.',
+                    'Collaborated cross-functionally with platform and DevOps teams on production deployments and incident resolution.',
+                  ],
+                },
+                {
                   role: 'Software Development Engineer Intern',
                   org: 'JPMorgan Chase & Co.',
-                  period: '2024 – Present',
-                  type: 'Industry',
+                  period: 'Jan – Jun 2025',
+                  type: 'Internship',
                   bullets: [
-                    'Backend development with Java and SpringBoot on enterprise financial systems',
-                    'CI/CD pipeline management via Jenkins and Spinnaker on AWS infrastructure',
-                    'Collaborated with cross-functional teams on production-grade microservices',
+                    'Developed efficient micro-service for migration of data from external cloud to internal cloud using Java and SpringBoot.',
+                    'Used Jenkins and Spinnaker as pipeline for CI/CD.',
+                    'Controlled cloud elements with IaaC (Infra as a Code); service deployed on AWS.',
+                    'Enhanced long-running data movement pipelines from days to hours by automating key steps.',
+                    'Participated in InnovationWeek – Expo & Hackathon.',
                   ],
                 },
                 {
                   role: 'Full Stack Developer',
                   org: 'Caldeira Estate, Green Mango (US Client)',
-                  period: '2024',
+                  period: 'Sept – Oct 2024',
                   type: 'Freelance',
                   bullets: [
-                    'Built complete platform with Next.js 15 and Supabase for a US hospitality client',
-                    'End-to-end delivery: architecture, UI/UX, backend APIs, and deployment',
-                  ],
-                },
-                {
-                  role: 'ML Engineer / Front-End Developer',
-                  org: 'Computer Society of India, RAIT',
-                  period: '2023 – 2024',
-                  type: 'Society',
-                  bullets: [
-                    'Led ML and frontend development for CSI community tech projects',
-                    'Mentored junior members on React Native and Python ML workflows',
+                    'Built a complete hospitality platform with Next.js 15 and Supabase for a US client.',
+                    'Implemented stay booking, product purchases, newsletter sign-ups, and contact flows end-to-end.',
+                    'Deployed on Vercel with full architecture, UI/UX, and backend API ownership.',
                   ],
                 },
               ].map((exp, i) => (
@@ -92,7 +108,7 @@ export default function ResumePage() {
                     <h3 className="headline-sm">{exp.role}</h3>
                     <span
                       style={{
-                        background: exp.type === 'Industry' ? 'var(--accent)' : 'var(--ink)',
+                        background: exp.type === 'Full-Time' ? 'var(--accent)' : 'var(--ink)',
                         color: 'var(--paper)',
                         fontFamily: 'Space Mono, monospace',
                         fontSize: '9px',
@@ -164,7 +180,7 @@ export default function ResumePage() {
           </div>
 
           {/* ── RIGHT SIDEBAR ── */}
-          <div style={{ paddingLeft: '2rem', paddingTop: '1.5rem' }}>
+          <div style={{ paddingLeft: '1rem', paddingTop: '1.5rem' }} className="responsive-padding">
             {/* Education */}
             <div style={{ marginBottom: '2rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -189,7 +205,7 @@ export default function ResumePage() {
                   degree: 'SSC',
                   school: 'IES Chandrakant Patkar Vidyalaya',
                   period: '2019',
-                  grade: '',
+                  grade: '84.60%',
                 },
               ].map((edu, i) => (
                 <div
@@ -281,9 +297,15 @@ export default function ResumePage() {
                   <span style={{ color: 'var(--accent)', fontSize: '16px' }}>☁</span>
                 </div>
                 <div>
-                  <p className="font-mono" style={{ fontSize: '12px', fontWeight: 700, marginBottom: '0.1rem' }}>
-                    AWS Certified Cloud Practitioner
-                  </p>
+                  <a
+                    href="https://cp.certmetrics.com/amazon/en/public/verify/credential/9db1d0200bb84d6a91bf695991a1ee89"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono"
+                    style={{ fontSize: '12px', fontWeight: 700, marginBottom: '0.1rem', display: 'block', textDecoration: 'none', color: 'var(--ink)' }}
+                  >
+                    AWS Certified Cloud Practitioner →
+                  </a>
                   <p className="byline">Amazon Web Services</p>
                 </div>
               </div>

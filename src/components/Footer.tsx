@@ -16,11 +16,12 @@ export default function Footer() {
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '3rem 2rem 2rem',
+          padding: '2rem 1rem 1rem',
           display: 'grid',
           gridTemplateColumns: '2fr 1fr 1fr',
-          gap: '3rem',
+          gap: '2rem',
         }}
+        className="responsive-padding responsive-grid-3"
       >
         {/* Brand */}
         <div>
@@ -150,16 +151,19 @@ export default function Footer() {
       <div
         style={{
           borderTop: '1px solid #333',
-          padding: '1rem 2rem',
+          padding: '1rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem',
         }}
+        className="responsive-padding responsive-grid-2"
       >
-        <span className="font-mono" style={{ fontSize: '10px', color: '#666' }}>
+        <span className="font-mono responsive-text-sm" style={{ fontSize: '9px', color: '#666' }}>
           © {new Date().getFullYear()} Mihiresh Joshi. All Rights Reserved.
         </span>
-        <span className="font-mono" style={{ fontSize: '10px', color: '#666' }}>
+        <span className="font-mono responsive-text-sm" style={{ fontSize: '9px', color: '#666' }}>
           Built with Next.js · TypeScript · Tailwind CSS
         </span>
       </div>

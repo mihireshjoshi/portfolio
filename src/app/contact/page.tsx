@@ -43,8 +43,8 @@ export default function ContactPage() {
   return (
     <div style={{ background: 'var(--paper)' }}>
       {/* ── HEADER ── */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 2rem 0' }}>
-        <div style={{ borderTop: '3px solid var(--ink)', paddingTop: '1.5rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem 1rem 0' }} className="responsive-padding">
+        <div style={{ paddingTop: '1.5rem' }}>
           <p className="section-tag" style={{ marginBottom: '0.5rem' }}>
             Editorial Desk — Contact
           </p>
@@ -60,7 +60,7 @@ export default function ContactPage() {
       </div>
 
       {/* ── CONTENT ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem 3rem' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem 3rem' }} className="responsive-padding">
         <div
           style={{
             display: 'grid',
@@ -69,9 +69,10 @@ export default function ContactPage() {
             borderTop: '3px double var(--ink)',
             marginTop: '1.5rem',
           }}
+          className="responsive-grid-2"
         >
           {/* ── FORM ── */}
-          <div style={{ paddingRight: '2rem', borderRight: '1px solid var(--ink)', paddingTop: '1.5rem' }}>
+          <div style={{ paddingRight: '1rem', borderRight: '1px solid var(--ink)', paddingTop: '1.5rem' }} className="responsive-padding responsive-no-border-right">
             <p className="byline" style={{ marginBottom: '1.5rem' }}>
               All dispatches reviewed within 24 hours · Mumbai Standard Time
             </p>
@@ -234,7 +235,7 @@ export default function ContactPage() {
           </div>
 
           {/* ── SIDEBAR ── */}
-          <div style={{ paddingLeft: '2rem', paddingTop: '1.5rem' }}>
+          <div style={{ paddingLeft: '1rem', paddingTop: '1.5rem' }} className="responsive-padding">
             {/* Direct contact */}
             <div style={{ marginBottom: '2rem' }}>
               <p className="section-tag" style={{ marginBottom: '1rem' }}>

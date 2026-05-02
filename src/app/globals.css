@@ -148,9 +148,240 @@ body {
 /* ── COLUMN GRID ── */
 .col-grid-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
+
+/* ── RESPONSIVE UTILITIES ── */
+@media (max-width: 768px) {
+  .col-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* About page responsive columns */
+  .about-columns {
+    columns: 1 !important;
+    column-rule: none !important;
+    column-gap: 0 !important;
+  }
+
+  .responsive-no-column-rule {
+    column-rule: none !important;
+  }
+
+  .responsive-no-border-right {
+    border-right: none !important;
+  }
+
+  .responsive-no-border-bottom {
+    border-bottom: none !important;
+  }
+
+  .responsive-no-border-top {
+    border-top: none !important;
+  }
+
+  /* Skills grid responsive borders */
+  .skills-grid-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--ink) !important;
+  }
+
+  .skills-grid-item:nth-child(3n) {
+    border-right: none !important;
+  }
+
+  .skills-grid-item:nth-last-child(-n+3) {
+    border-bottom: none !important;
+  }
+
+  /* Timeline responsive */
+  .timeline-item {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .timeline-year {
+    margin-bottom: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 1px solid var(--paper-dark) !important;
+  }
+
+  /* About page left column responsive */
+  .about-left-column {
+    border-right: none !important;
+    border-bottom: 1px solid var(--ink) !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* About page right sidebar responsive */
+  .about-right-sidebar {
+    padding-top: 2rem !important;
+  }
+
+  /* Projects page responsive */
+  .secondary-project-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--ink) !important;
+  }
+
+  .secondary-project-item:nth-child(2n) {
+    border-right: none !important;
+  }
+
+  .briefs-grid-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--ink) !important;
+  }
+
+  .briefs-grid-item:nth-child(3n) {
+    border-right: none !important;
+  }
+
+  .briefs-grid-item:nth-last-child(-n+3) {
+    border-bottom: none !important;
+  }
+
+  /* Responsive padding */
+  .responsive-padding {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Responsive grid layouts */
+  .responsive-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .responsive-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hide/show elements on mobile */
+  .hidden-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: block !important;
+  }
+
+  /* Responsive text sizes */
+  .responsive-text-lg {
+    font-size: 1.1rem !important;
+  }
+
+  .responsive-text-sm {
+    font-size: 0.9rem !important;
+  }
+
+  /* Responsive spacing */
+  .responsive-gap {
+    gap: 1rem !important;
+  }
+
+  /* Responsive margins */
+  .responsive-margin {
+    margin: 1rem !important;
+  }
+
+  /* Typography adjustments */
+  .headline-xl {
+    font-size: clamp(2rem, 6vw, 4rem) !important;
+  }
+
+  .headline-lg {
+    font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
+  }
+
+  .standfirst {
+    font-size: 0.95rem !important;
+  }
+
+  .headline-lg {
+    font-size: clamp(1.6rem, 4vw, 2.8rem) !important;
+  }
+
+  .headline-md {
+    font-size: clamp(1.2rem, 3vw, 1.4rem) !important;
+  }
+
+  .headline-sm {
+    font-size: 1rem !important;
+  }
+
+  .body-copy {
+    font-size: 11px !important;
+  }
+
+  /* Button adjustments */
+  .btn-ink, .btn-outline {
+    font-size: 10px !important;
+    padding: 0.55rem 1rem !important;
+  }
+
+  .resume-header-row {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+  }
+
+  .resume-download-btn {
+    width: 100% !important;
+    max-width: 240px !important;
+    text-align: center !important;
+  }
+
+  /* Form adjustments */
+  input, textarea, select {
+    font-size: 11px !important;
+    padding: 0.6rem 0.7rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .col-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Extra small screens */
+  .responsive-padding-xs {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .responsive-text-xs {
+    font-size: 0.8rem !important;
+  }
+
+  /* Smaller headlines on very small screens */
+  .headline-xl {
+    font-size: clamp(1.8rem, 8vw, 3.5rem) !important;
+  }
+
+  /* Adjust section tags */
+  .section-tag {
+    font-size: 9px !important;
+  }
+
+  /* Adjust bylines */
+  .byline {
+    font-size: 9px !important;
+  }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 769px) {
+  .hidden-desktop {
+    display: none !important;
+  }
+
+  .show-desktop {
+    display: block !important;
+  }
+}
+
 .col-grid-3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

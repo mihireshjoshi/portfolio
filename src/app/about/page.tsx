@@ -48,10 +48,11 @@ export default function AboutPage() {
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '2rem 2rem 0',
+          padding: '2rem 1rem 0',
         }}
+        className="responsive-padding"
       >
-        <div style={{ borderTop: '3px solid var(--ink)', paddingTop: '1.5rem' }}>
+        <div style={{ paddingTop: '1.5rem' }}>
           <p className="section-tag" style={{ marginBottom: '0.5rem' }}>
             Profile
           </p>
@@ -68,7 +69,7 @@ export default function AboutPage() {
       </div>
 
       {/* ── MAIN CONTENT ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem' }} className="responsive-padding">
         <div
           style={{
             display: 'grid',
@@ -76,9 +77,10 @@ export default function AboutPage() {
             gap: 0,
             borderTop: '1px solid var(--ink)',
           }}
+          className="responsive-grid-2"
         >
           {/* ── LEFT: BIO COLUMNS ── */}
-          <div style={{ paddingRight: '2rem', borderRight: '1px solid var(--ink)' }}>
+          <div style={{ paddingRight: '1rem', borderRight: '1px solid var(--ink)', paddingBottom: '1rem' }} className="responsive-padding about-left-column">
             <p className="byline" style={{ padding: '1rem 0', borderBottom: '1px solid var(--ink)' }}>
               Reporter: The Portfolio Chronicle · Mumbai
             </p>
@@ -90,6 +92,7 @@ export default function AboutPage() {
                 columnRule: '1px solid var(--ink)',
                 padding: '1.5rem 0',
               }}
+              className="about-columns"
             >
               <p className="body-copy dropcap" style={{ marginBottom: '1rem' }}>
                 Mihiresh Joshi does not fit neatly into a single category. He is a
@@ -147,6 +150,7 @@ export default function AboutPage() {
                 columnRule: '1px solid var(--ink)',
                 padding: '1rem 0',
               }}
+              className="about-columns"
             >
               <p className="body-copy" style={{ marginBottom: '1rem' }}>
                 His design sensibility is equally sharp. Mihiresh approaches UI with
@@ -166,7 +170,7 @@ export default function AboutPage() {
           </div>
 
           {/* ── RIGHT: SIDEBAR ── */}
-          <div style={{ paddingLeft: '2rem', paddingTop: '1rem' }}>
+          <div style={{ paddingLeft: '1rem', paddingTop: '1rem' }} className="responsive-padding about-right-sidebar">
             {/* Fact File */}
             <div
               style={{
@@ -250,8 +254,9 @@ export default function AboutPage() {
           background: 'var(--paper-dark)',
           borderTop: '3px solid var(--ink)',
           borderBottom: '3px solid var(--ink)',
-          padding: '2.5rem 2rem',
+          padding: '2.5rem 1rem',
         }}
+        className="responsive-padding"
       >
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
@@ -264,18 +269,17 @@ export default function AboutPage() {
               gridTemplateColumns: 'repeat(3, 1fr)',
               gap: 0,
             }}
+            className="responsive-grid-3"
           >
             {SKILLS.map((group, i) => (
               <div
                 key={group.category}
                 style={{
                   padding: '1rem',
-                  paddingLeft: i % 3 === 0 ? 0 : '1rem',
-                  borderRight: (i + 1) % 3 !== 0 ? '1px solid var(--ink)' : 'none',
-                  borderBottom: i < 3 ? '1px solid var(--ink)' : 'none',
-                  paddingBottom: '1rem',
-                  paddingTop: i >= 3 ? '1rem' : 0,
+                  borderBottom: '1px solid var(--ink)',
+                  borderRight: '1px solid var(--ink)',
                 }}
+                className="skills-grid-item"
               >
                 <p className="section-tag" style={{ marginBottom: '0.75rem' }}>{group.category}</p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
@@ -290,7 +294,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── TIMELINE ── */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '2.5rem 2rem' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '2.5rem 1rem' }} className="responsive-padding">
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
           <span className="section-tag">Career Timeline</span>
           <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
@@ -306,8 +310,9 @@ export default function AboutPage() {
                 borderTop: '1px solid var(--ink)',
                 padding: '1.25rem 0',
               }}
+              className="timeline-item"
             >
-              <div>
+              <div className="timeline-year">
                 <span className="byline" style={{ display: 'block', marginBottom: '0.25rem' }}>
                   {item.year}
                 </span>
