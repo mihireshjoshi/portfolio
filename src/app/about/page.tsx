@@ -1,13 +1,13 @@
 import Link from 'next/link'
+import { headers } from 'next/headers'
 
-const SKILLS = [
-  { category: 'Languages', items: ['Java', 'Python', 'TypeScript', 'JavaScript'] },
-  { category: 'Frontend', items: ['React', 'Next.js', 'React Native', 'Tailwind CSS', 'Figma'] },
-  { category: 'Backend', items: ['SpringBoot', 'FastAPI', 'Node.js', 'REST APIs'] },
-  { category: 'AI / ML', items: ['TensorFlow', 'PyTorch', 'OpenCV', 'YOLO', 'NLP'] },
-  { category: 'Cloud & DevOps', items: ['AWS', 'Jenkins', 'Spinnaker', 'Docker', 'Git'] },
-  { category: 'Databases', items: ['Supabase', 'PostgreSQL', 'MongoDB', 'Firebase'] },
-]
+interface Skill {
+  id: string
+  name: string
+  type: string
+  expertiseLevel: number
+  displayOrder: number
+}
 
 const TIMELINE = [
   {
@@ -40,7 +40,46 @@ const TIMELINE = [
   },
 ]
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  console.log('[PAGE] About page rendering...')
+  const headersList = await headers()
+  const host = headersList.get('x-forwarded-host') ?? headersList.get('host')
+  const proto = headersList.get('x-forwarded-proto') ?? 'http'
+  const baseUrl = host ? `${proto}://${host}` : process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+  console.log('[PAGE] Base URL:', baseUrl)
+
+  console.log('[PAGE] Fetching skills...')
+  const skillsRes = await fetch(new URL('/api/skills', baseUrl), { cache: 'no-store' })
+  const allSkills: Skill[] = skillsRes.ok ? await skillsRes.json() : []
+
+  console.log('[PAGE] Fetched skills:', allSkills?.length || 0)
+
+  if (!skillsRes.ok) {
+    console.error('[PAGE] Failed to load skills:', skillsRes.status, await skillsRes.text())
+  }
+
+  // Group skills by type with friendly names
+  const typeLabels: Record<string, string> = {
+    backend: 'Backend',
+    frontend: 'Frontend',
+    ml: 'AI / ML',
+    devops: 'Cloud & DevOps',
+    tools: 'Tools & Design',
+  }
+
+  const skillsByType = allSkills.reduce((acc: Record<string, Skill[]>, skill) => {
+    if (!acc[skill.type]) {
+      acc[skill.type] = []
+    }
+    acc[skill.type].push(skill)
+    return acc
+  }, {})
+
+  const skillsGroups = Object.entries(skillsByType).map(([type, skills]) => ({
+    category: typeLabels[type] || type,
+    items: skills.map(s => s.name),
+  }))
+
   return (
     <div style={{ background: 'var(--paper)' }}>
       {/* ── PAGE HEADER ── */}
@@ -271,7 +310,7 @@ export default function AboutPage() {
             }}
             className="responsive-grid-3"
           >
-            {SKILLS.map((group, i) => (
+            {skillsGroups.map((group, i) => (
               <div
                 key={group.category}
                 style={{

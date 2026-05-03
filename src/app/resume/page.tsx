@@ -1,4 +1,84 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+
+interface Experience {
+  id: string
+  role: string
+  org: string
+  period: string
+  type: string
+  bullets: string[]
+}
+
+interface Achievement {
+  id: string
+  award: string
+  event: string
+  org: string
+  date: string
+}
+
+interface ProjectSummary {
+  id: string
+  title: string
+  technologies: string[]
+  note: string
+}
+
+interface Skill {
+  id: string
+  name: string
+  type: string
+  expertiseLevel: number
+  displayOrder: number
+}
+
 export default function ResumePage() {
+  const [experiences, setExperiences] = useState<Experience[]>([])
+  const [achievements, setAchievements] = useState<Achievement[]>([])
+  const [projects, setProjects] = useState<ProjectSummary[]>([])
+  const [skills, setSkills] = useState<Skill[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log('[RESUME] Starting data fetch...')
+      try {
+        console.log('[RESUME] Fetching experiences, achievements, projects, and skills...')
+        const [expRes, achRes, projRes, skillRes] = await Promise.all([
+          fetch('/api/experiences'),
+          fetch('/api/achievements'),
+          fetch('/api/projects'),
+          fetch('/api/skills'),
+        ])
+        const expData = await expRes.json()
+        const achData = await achRes.json()
+        const projData = await projRes.json()
+        const skillData = await skillRes.json()
+        console.log('[RESUME] Data fetched:', { experiences: expData?.length || 0, achievements: achData?.length || 0, projects: projData?.length || 0, skills: skillData?.length || 0 })
+        setExperiences(expData)
+        setAchievements(achData)
+        setProjects(projData)
+        setSkills(skillData)
+      } catch (error) {
+        console.error('[RESUME] Failed to fetch data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (loading) {
+    return (
+      <div style={{ background: 'var(--paper)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p className="byline">Loading resume...</p>
+      </div>
+    )
+  }
+
   return (
     <div style={{ background: 'var(--paper)' }}>
       {/* ── HEADER ── */}
@@ -57,45 +137,7 @@ export default function ResumePage() {
                 <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
               </div>
 
-              {[
-                {
-                  role: 'Software Development Engineer 1',
-                  org: 'JPMorgan Chase & Co.',
-                  period: 'July 2025 – Present',
-                  type: 'Full-Time',
-                  bullets: [
-                    'Engineered and owned backend micro-services for large-scale cloud data migration using Java and SpringBoot.',
-                    'Maintained and extended CI/CD pipelines via Jenkins and Spinnaker across multiple deployment environments.',
-                    'Managed cloud infrastructure through IaaC, ensuring reproducible and auditable environment provisioning on AWS.',
-                    'Optimised data movement workflows, reducing pipeline runtimes from days to hours through targeted automation.',
-                    'Collaborated cross-functionally with platform and DevOps teams on production deployments and incident resolution.',
-                  ],
-                },
-                {
-                  role: 'Software Development Engineer Intern',
-                  org: 'JPMorgan Chase & Co.',
-                  period: 'Jan – Jun 2025',
-                  type: 'Internship',
-                  bullets: [
-                    'Developed efficient micro-service for migration of data from external cloud to internal cloud using Java and SpringBoot.',
-                    'Used Jenkins and Spinnaker as pipeline for CI/CD.',
-                    'Controlled cloud elements with IaaC (Infra as a Code); service deployed on AWS.',
-                    'Enhanced long-running data movement pipelines from days to hours by automating key steps.',
-                    'Participated in InnovationWeek – Expo & Hackathon.',
-                  ],
-                },
-                {
-                  role: 'Full Stack Developer',
-                  org: 'Caldeira Estate, Green Mango (US Client)',
-                  period: 'Sept – Oct 2024',
-                  type: 'Freelance',
-                  bullets: [
-                    'Built a complete hospitality platform with Next.js 15 and Supabase for a US client.',
-                    'Implemented stay booking, product purchases, newsletter sign-ups, and contact flows end-to-end.',
-                    'Deployed on Vercel with full architecture, UI/UX, and backend API ownership.',
-                  ],
-                },
-              ].map((exp, i) => (
+              {experiences.map((exp, i) => (
                 <div
                   key={i}
                   style={{
@@ -153,26 +195,19 @@ export default function ResumePage() {
                 <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
               </div>
 
-              {[
-                { name: 'Hisaab-Book', tech: 'React Native · FastAPI · ML', note: 'National Finalist — Bhashini Sprint' },
-                { name: 'FutureFund', tech: 'Next.js · FastAPI · TensorFlow', note: 'National Finalist — TIAA Retire-Thon' },
-                { name: 'SafeGuard', tech: 'CNN · YOLO · Twilio · Supabase', note: 'Workplace safety AI' },
-                { name: 'AQI Nexus', tech: 'React Native · FastAPI · Python ML', note: 'Air quality forecasting' },
-                { name: 'FinVerse', tech: 'React Native · Supabase', note: 'Fintech networking platform' },
-                { name: 'Cartsy', tech: 'React Native · Supabase · Stripe', note: 'A* retail navigation app' },
-              ].map((proj, i) => (
+              {projects.map((proj, i) => (
                 <div
-                  key={i}
+                  key={proj.id}
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr 1fr',
+                    gridTemplateColumns: '0.7fr 1.2fr 1.2fr',
                     gap: '0.5rem',
                     borderTop: '1px solid var(--paper-dark)',
                     padding: '0.6rem 0',
                   }}
                 >
-                  <span className="font-mono" style={{ fontSize: '12px', fontWeight: 700 }}>{proj.name}</span>
-                  <span className="body-copy" style={{ fontSize: '11px', color: 'var(--muted)' }}>{proj.tech}</span>
+                  <span className="font-mono" style={{ fontSize: '12px', fontWeight: 700 }}>{proj.title}</span>
+                  <span className="body-copy" style={{ fontSize: '11px', color: 'var(--muted)' }}>{proj.technologies.join(' · ')}</span>
                   <span className="body-copy" style={{ fontSize: '11px', color: 'var(--accent)' }}>{proj.note}</span>
                 </div>
               ))}
@@ -241,13 +276,9 @@ export default function ResumePage() {
                 <span className="section-tag">Awards</span>
                 <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
               </div>
-              {[
-                { award: '1st Place', event: 'Techathon Kode Konquerors', org: 'Kongsberg Maritime', date: 'Sept 2024' },
-                { award: 'National Finalist', event: 'TIAA Retire-Thon', org: 'TIAA', date: 'June 2024' },
-                { award: 'National Finalist', event: 'Bhashini Sprint', org: 'Govt. of India', date: 'May 2024' },
-              ].map((a, i) => (
+              {achievements.map((a, i) => (
                 <div
-                  key={i}
+                  key={a.id}
                   style={{
                     borderTop: i > 0 ? '1px solid var(--ink)' : 'none',
                     padding: '0.75rem 0',
@@ -318,13 +349,8 @@ export default function ResumePage() {
                 <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                {[
-                  'Java', 'SpringBoot', 'Python', 'TypeScript',
-                  'React', 'Next.js', 'React Native', 'FastAPI',
-                  'TensorFlow', 'AWS', 'Jenkins', 'Spinnaker',
-                  'Supabase', 'PostgreSQL', 'Figma', 'Git',
-                ].map((s) => (
-                  <span key={s} className="tech-tag">{s}</span>
+                {skills.map((s) => (
+                  <span key={s.id} className="tech-tag">{s.name}</span>
                 ))}
               </div>
             </div>

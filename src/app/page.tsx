@@ -1,55 +1,92 @@
 import Link from 'next/link'
+import { headers } from 'next/headers'
 
-const FEATURED_PROJECTS = [
-  {
-    tag: 'AI/ML',
-    headline: 'Hisaab-Book: Revolutionising Small Business Accounting With Voice AI',
-    standfirst:
-      'National finalist at Bhashini Sprint, this React Native + FastAPI system brings Indic-language voice and image recognition to SME inventory management.',
-    date: 'Mar 2024',
-    size: 'lead',
-  },
-  {
-    tag: 'Fintech',
-    headline: 'FinVerse Connects Financial Communities on Mobile',
-    standfirst:
-      'A React Native fintech networking platform powered by Supabase, bridging investors and advisors in a LinkedIn-meets-Bloomberg interface.',
-    date: 'Dec 2024',
+interface Skill {
+  id: string
+  name: string
+  type: string
+  expertiseLevel: number
+  displayOrder: number
+}
+
+interface FeaturedProject {
+  id: string
+  title: string
+  tag: string
+  tagline: string | null
+  headline: string | null
+  standfirst: string | null
+  date: string
+  size: string | null
+}
+
+interface Achievement {
+  id: string
+  award: string
+  event: string
+  org: string
+  date: string
+  displayOrder: number
+}
+
+export default async function HomePage() {
+  console.log('[PAGE] Home page rendering...')
+  const headersList = await headers()
+  const host = headersList.get('x-forwarded-host') ?? headersList.get('host')
+  const proto = headersList.get('x-forwarded-proto') ?? 'http'
+  const baseUrl = host ? `${proto}://${host}` : process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+  console.log('[PAGE] Base URL:', baseUrl)
+
+  console.log('[PAGE] Fetching projects, achievements, and skills...')
+  const [projectsRes, achievementsRes, skillsRes] = await Promise.all([
+    fetch(new URL('/api/projects', baseUrl), { cache: 'no-store' }),
+    fetch(new URL('/api/achievements', baseUrl), { cache: 'no-store' }),
+    fetch(new URL('/api/skills', baseUrl), { cache: 'no-store' }),
+  ])
+
+  const rawProjects = projectsRes.ok ? await projectsRes.json() : []
+  const achievements: Achievement[] = achievementsRes.ok ? await achievementsRes.json() : []
+  const skills: Skill[] = skillsRes.ok ? await skillsRes.json() : []
+
+  console.log('[PAGE] Fetched:', { projects: rawProjects?.length || 0, achievements: achievements?.length || 0, skills: skills?.length || 0 })
+
+  if (!projectsRes.ok) {
+    console.error('[PAGE] Failed to load projects:', projectsRes.status, await projectsRes.text())
+  }
+
+  if (!achievementsRes.ok) {
+    console.error('[PAGE] Failed to load achievements:', achievementsRes.status, await achievementsRes.text())
+  }
+
+  if (!skillsRes.ok) {
+    console.error('[PAGE] Failed to load skills:', skillsRes.status, await skillsRes.text())
+  }
+
+  const featuredProjects: FeaturedProject[] = (rawProjects ?? [])
+    .filter((project: any) => project.isFeatured)
+    .sort((a: any, b: any) => (a.featuredOrder ?? 0) - (b.featuredOrder ?? 0))
+    .map((project: any) => ({
+      id: project.id,
+      title: project.title,
+      tag: project.tag,
+      tagline: project.tagline,
+      headline: project.headline ?? project.title,
+      standfirst: project.standfirst ?? project.tagline ?? '',
+      date: project.date,
+      size: project.size ?? 'secondary',
+    }))
+
+  const leadProject: FeaturedProject = featuredProjects[0] ?? {
+    id: '',
+    title: '',
+    tag: '',
+    tagline: null,
+    headline: '',
+    standfirst: '',
+    date: '',
     size: 'secondary',
-  },
-  {
-    tag: 'Computer Vision',
-    headline: 'SafeGuard Deploys YOLO to Monitor Workplace Safety in Real Time',
-    standfirst:
-      'CNN-based object detection with Twilio alerts — keeping construction sites safe, one frame at a time.',
-    date: 'Aug 2024',
-    size: 'secondary',
-  },
-  {
-    tag: 'ML Engineering',
-    headline: 'FutureFund Brings Machine Learning to Retirement Planning',
-    standfirst:
-      'TensorFlow-backed investment guidance in a Next.js interface — finalist at TIAA Retire-Thon.',
-    date: 'May 2024',
-    size: 'brief',
-  },
-  {
-    tag: 'Climate Tech',
-    headline: 'AQI Nexus: AI-Powered Air Quality Forecasting for Urban India',
-    standfirst:
-      'FastAPI + Python ML pipeline delivering real-time AQI predictions with a React Native dashboard.',
-    date: 'Aug 2024',
-    size: 'brief',
-  },
-]
+  }
 
-const SKILLS = [
-  'Java', 'SpringBoot', 'Python', 'React', 'Next.js',
-  'React Native', 'FastAPI', 'TensorFlow', 'AWS', 'Supabase',
-  'Jenkins', 'Spinnaker', 'TypeScript', 'Figma',
-]
-
-export default function HomePage() {
   return (
     <div style={{ background: 'var(--paper)' }}>
       {/* ════════════════════════════════════
@@ -241,8 +278,8 @@ export default function HomePage() {
           Tech Stack ·
         </span>
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          {SKILLS.map((s) => (
-            <span key={s} className="tech-tag">{s}</span>
+          {skills.map((s) => (
+            <span key={s.id} className="tech-tag">{s.name}</span>
           ))}
         </div>
       </div>
@@ -290,16 +327,16 @@ export default function HomePage() {
             className="responsive-padding responsive-no-border-right"
           >
             <span className="section-tag" style={{ display: 'block', marginBottom: '0.5rem' }}>
-              {FEATURED_PROJECTS[0].tag}
+              {leadProject.tag}
             </span>
             <h2 className="headline-lg" style={{ marginBottom: '0.75rem' }}>
-              {FEATURED_PROJECTS[0].headline}
+              {leadProject.headline}
             </h2>
             <p className="standfirst" style={{ marginBottom: '1rem' }}>
-              {FEATURED_PROJECTS[0].standfirst}
+              {leadProject.standfirst}
             </p>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span className="byline">{FEATURED_PROJECTS[0].date}</span>
+              <span className="byline">{leadProject.date}</span>
               <Link href="/projects" className="btn-ink" style={{ fontSize: '10px', padding: '0.4rem 1rem' }}>
                 Read More →
               </Link>
@@ -308,9 +345,9 @@ export default function HomePage() {
 
           {/* Two secondary stories */}
           <div>
-            {FEATURED_PROJECTS.slice(1, 3).map((proj, i) => (
+            {featuredProjects.slice(1, 3).map((proj, i) => (
               <div
-                key={proj.headline}
+                key={proj.id}
                 style={{
                   padding: '1.5rem 0 1.5rem 1rem',
                   borderBottom: i === 0 ? '1px solid var(--ink)' : 'none',
@@ -342,9 +379,9 @@ export default function HomePage() {
           }}
           className="responsive-grid-2"
         >
-          {FEATURED_PROJECTS.slice(3).map((proj, i) => (
+          {featuredProjects.slice(3).map((proj, i) => (
             <div
-              key={proj.headline}
+              key={proj.id}
               style={{
                 padding: '1.25rem',
                 borderRight: i === 0 ? '1px solid var(--ink)' : 'none',
@@ -419,50 +456,31 @@ export default function HomePage() {
           }}
           className="responsive-grid-3"
         >
-          {[
-            {
-              tag: 'Sept 2024',
-              headline: 'Winner',
-              sub: 'Techathon Kode Konquerors',
-              desc: "First place at Kongsberg Maritime's flagship hackathon — engineering excellence recognised.",
-            },
-            {
-              tag: 'June 2024',
-              headline: 'Finalist',
-              sub: 'TIAA Retire-Thon',
-              desc: 'National finalist with FutureFund, an ML-powered retirement planning platform.',
-            },
-            {
-              tag: 'May 2024',
-              headline: 'Finalist',
-              sub: 'Bhashini Sprint (National)',
-              desc: 'Hisaab-Book reached national finals — Indic-language AI for SME accounting.',
-            },
-          ].map((a, i) => (
+          {achievements.map((a, i) => (
             <div
-              key={a.sub}
+              key={a.id}
               style={{
                 padding: '1.5rem',
-                borderRight: i < 2 ? '1px solid var(--ink)' : 'none',
+                borderRight: i < achievements.length - 1 ? '1px solid var(--ink)' : 'none',
               }}
               className="responsive-no-border-right"
             >
               <span className="byline" style={{ display: 'block', marginBottom: '0.25rem' }}>
-                {a.tag}
+                {a.date}
               </span>
               <h3
                 className="headline-lg"
                 style={{ color: 'var(--accent)', fontSize: '2.5rem', lineHeight: 1, marginBottom: '0.25rem' }}
               >
-                {a.headline}
+                {a.award}
               </h3>
               <p
                 className="font-mono"
                 style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', marginBottom: '0.75rem' }}
               >
-                {a.sub}
+                {a.event}
               </p>
-              <p className="body-copy">{a.desc}</p>
+              <p className="body-copy">{a.org}</p>
             </div>
           ))}
         </div>

@@ -1,7 +1,24 @@
 'use client'
 
-import { useState } from 'react'
-import { PROJECTS } from '@/data/projects'
+import { useState, useEffect } from 'react'
+
+interface Project {
+  id: string
+  title: string
+  date: string
+  tag: string
+  tagline: string
+  abstract: string
+  description: string
+  features: string[]
+  technologies: string[]
+  role: string
+  organization: string
+  achievement?: string
+  githubUrl?: string
+  youtubeId?: string
+  isFeatured?: boolean
+}
 
 function YouTubeEmbed({ youtubeId, title }: { youtubeId: string; title: string }) {
   const [playing, setPlaying] = useState(false)
@@ -78,9 +95,36 @@ function YouTubeEmbed({ youtubeId, title }: { youtubeId: string; title: string }
 }
 
 export default function ProjectsPage() {
-  const lead = PROJECTS[0]
-  const secondary = PROJECTS.slice(1, 3)
-  const rest = PROJECTS.slice(3)
+  const [projects, setProjects] = useState<Project[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('/api/projects')
+        const data = await response.json()
+        setProjects(data)
+      } catch (error) {
+        console.error('Failed to fetch projects:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  if (loading) {
+    return (
+      <div style={{ background: 'var(--paper)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p className="byline">Loading projects...</p>
+      </div>
+    )
+  }
+
+  const lead = projects[0]
+  const secondary = projects.slice(1, 3)
+  const rest = projects.slice(3)
 
   return (
     <div style={{ background: 'var(--paper)' }}>
@@ -94,7 +138,7 @@ export default function ProjectsPage() {
             <h1 className="headline-xl" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>
               The Work
             </h1>
-            <p className="byline">{PROJECTS.length} Projects · 2024</p>
+            <p className="byline">{projects.length} Projects · 2024</p>
           </div>
         </div>
       </div>
@@ -314,7 +358,7 @@ export default function ProjectsPage() {
           <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-          {Array.from(new Set(PROJECTS.flatMap((p) => p.technologies))).map((tech) => (
+          {Array.from(new Set(projects.flatMap((p) => p.technologies))).map((tech) => (
             <span key={tech} className="tech-tag">{tech}</span>
           ))}
         </div>
