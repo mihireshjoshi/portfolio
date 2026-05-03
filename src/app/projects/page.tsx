@@ -337,6 +337,21 @@ export default function ProjectsPage() {
                 <p className="body-copy" style={{ marginBottom: '0.75rem' }}>
                   {proj.abstract}
                 </p>
+                {proj.achievement && (
+                <p
+                  style={{
+                    fontFamily: 'Space Mono, monospace',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: 'var(--accent)',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.75rem',
+                  }}
+                >
+                  🏆 {proj.achievement}
+                </p>
+              )}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', marginBottom: proj.youtubeId ? '0.75rem' : undefined }}>
                   {proj.technologies.slice(0, 3).map((t) => (
                     <span key={t} className="tech-tag" style={{ fontSize: '9px' }}>{t}</span>
