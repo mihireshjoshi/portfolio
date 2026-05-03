@@ -9,6 +9,12 @@ import { Analytics } from '@vercel/analytics/next';
 export const metadata: Metadata = {
   title: 'Mihiresh Joshi — The Portfolio Chronicle',
   description: 'Software Engineer, AI/ML Enthusiast & Full Stack Developer',
+  icons: {
+  icon: [
+    { url: '/icon-light.png', media: '(prefers-color-scheme: light)' },
+    { url: '/icon-dark.png', media: '(prefers-color-scheme: dark)' },
+  ],
+},
 }
 
 export default function RootLayout({
